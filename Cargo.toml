@@ -10,14 +10,9 @@ edition = "2018"
 [dependencies]
 subtle = "2.0"
 thiserror = "1.0"
-zeroize = "0.6"
+zeroize = { version = "1.2", features = ["zeroize_derive"] }
 
 [dev-dependencies]
-base64 = "0.10"
-rand = "0.6"
+base64 = "0.13"
+rand = "0.8"
 serde_json = "1.0"
-
-[profile.release]
-incremental = false
-lto = true
-opt-level = 3

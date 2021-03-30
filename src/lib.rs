@@ -36,7 +36,7 @@ use core::arch::x86_64::{
 };
 use subtle::ConstantTimeEq as _;
 use thiserror::Error;
-use zeroize::{Zeroize, ZeroizeOnDrop};
+use zeroize::Zeroize as _;
 
 include!("constants.rs");
 include!("primitives.rs");
@@ -53,22 +53,13 @@ pub enum DecryptionError {
 ///
 /// We don't store the key itself, but only components derived from the key.
 /// These components are automatically erased after the structure is dropped.
-#[derive(ZeroizeOnDrop)]
+#[derive(zeroize::Zeroize)]
 #[repr(align(16))]
+#[zeroize(drop)]
 pub struct DeoxysII {
     /// Derived K components for the sub-tweak keys for each round.
     /// These are derived from the key.
     derived_ks: [[u8; STK_SIZE]; STK_COUNT],
-}
-
-impl Zeroize for DeoxysII {
-    /// Make sure the derived K components are erased before the struct
-    /// is dropped, as they contain sensitive information.
-    fn zeroize(&mut self) {
-        for i in 0..STK_COUNT {
-            self.derived_ks[i].zeroize();
-        }
-    }
 }
 
 macro_rules! process_blocks {
