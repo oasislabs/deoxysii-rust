@@ -21,10 +21,13 @@
 // SOFTWARE.
 
 //! Deoxys-II-256-128 MRAE primitive implementation.
-#![feature(llvm_asm, test)]
 
-#[cfg(not(all(target_feature = "aes", target_feature = "ssse3",)))]
-compile_error!("The following target_feature flags must be set: +aes,+ssse3.");
+#[cfg(not(all(
+    target_feature = "aes",
+    target_feature = "ssse3",
+    target_feature = "avx"
+)))]
+compile_error!("The following target_feature flags must be set: +aes,+ssse3,+avx.");
 
 extern crate alloc;
 
