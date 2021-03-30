@@ -14,5 +14,10 @@ zeroize = { version = "1.2", features = ["zeroize_derive"] }
 
 [dev-dependencies]
 base64 = "0.13"
+criterion = "0.3"
 rand = "0.8"
 serde_json = "1.0"
+
+[[bench]]
+name = "mrae"
+harness = false
