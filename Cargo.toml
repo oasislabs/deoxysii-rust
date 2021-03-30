@@ -1,6 +1,6 @@
 [package]
 name = "deoxysii"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Oasis Labs Inc. <info@oasislabs.com>"]
 description = "Deoxys-II-256-128 MRAE primitives for Rust"
 repository = "https://github.com/oasisprotocol/deoxysii-rust"
