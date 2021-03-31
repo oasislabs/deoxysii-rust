@@ -10,8 +10,6 @@ This crate provides a Rust implementation of [Deoxys-II-256-128 v1.43][0].
 The implementation uses Intel SIMD intrinsics (SSSE3 and AES-NI) for
 speed and will therefore only run on relatively modern x86-64 processors.
 
-The nightly version of Rust is required to build this crate.
-
 To build everything, run tests and benchmarks, simply run `make`.
 
 If you have the `RUSTFLAGS` environment variable set, it will override Rust

@@ -321,32 +321,16 @@ fn bc_xor_blocks(
     }
 }
 
+mod ffi {
+    extern "C" {
+        pub(crate) fn sanitize_xmm_registers();
+    }
+}
+
 #[inline(always)]
 fn sanitize_xmm_registers() {
-    unsafe {
-        // This is overly heavy handed, but the downside to using intrinsics
-        // is that there's no way to tell which registers end up with sensitive
-        // key material.
-        llvm_asm!("pxor %xmm0, %xmm0
-            pxor %xmm1, %xmm1
-            pxor %xmm2, %xmm2
-            pxor %xmm3, %xmm3
-            pxor %xmm4, %xmm4
-            pxor %xmm5, %xmm5
-            pxor %xmm6, %xmm6
-            pxor %xmm7, %xmm7
-            pxor %xmm8, %xmm8
-            pxor %xmm9, %xmm9
-            pxor %xmm10, %xmm10
-            pxor %xmm11, %xmm11
-            pxor %xmm12, %xmm12
-            pxor %xmm13, %xmm13
-            pxor %xmm14, %xmm14
-            pxor %xmm15, %xmm15"
-            :
-            :
-            :"xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5", "xmm6", "xmm7", "xmm8", "xmm9", "xmm10", "xmm11", "xmm12", "xmm13", "xmm14", "xmm15"
-            : "volatile"
-        );
-    }
+    // This is overly heavy handed, but the downside to using intrinsics
+    // is that there's no way to tell which registers end up with sensitive
+    // key material.
+    unsafe { ffi::sanitize_xmm_registers() }
 }

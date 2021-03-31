@@ -21,10 +21,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly-2020-05-31
-          override: true
+
       - name: Run tests
         run: make
