@@ -24,12 +24,8 @@
 
 #![deny(unreachable_pub, rust_2018_idioms)]
 
-#[cfg(not(all(
-    target_feature = "aes",
-    target_feature = "ssse3",
-    target_feature = "avx"
-)))]
-compile_error!("The following target_feature flags must be set: +aes,+ssse3,+avx.");
+#[cfg(not(all(target_feature = "aes", target_feature = "ssse3",)))]
+compile_error!("The following target_feature flags must be set: +aes,+ssse3.");
 
 extern crate alloc;
 

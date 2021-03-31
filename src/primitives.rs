@@ -321,7 +321,16 @@ fn bc_xor_blocks(
     }
 }
 
+mod ffi {
+    extern "C" {
+        pub(crate) fn sanitize_xmm_registers();
+    }
+}
+
 #[inline(always)]
 fn sanitize_xmm_registers() {
-    unsafe { core::arch::x86_64::_mm256_zeroall() }
+    // This is overly heavy handed, but the downside to using intrinsics
+    // is that there's no way to tell which registers end up with sensitive
+    // key material.
+    unsafe { ffi::sanitize_xmm_registers() }
 }
